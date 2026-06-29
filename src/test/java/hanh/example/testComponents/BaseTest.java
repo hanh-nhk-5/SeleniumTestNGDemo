@@ -7,22 +7,23 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.*;
 
 public class BaseTest {
-    WebDriver driver;
     protected LandingPage landingPage;
 
     @BeforeClass(alwaysRun = true)
     public void launchTheWebApp(){
+        //Download the correct browser driver
         WebDriverManager.chromedriver().setup();
-        driver = new ChromeDriver();
+
+        DriverManager.setDriver(new ChromeDriver());
+        WebDriver driver = DriverManager.getDriver();
         driver.manage().window().maximize();
-        landingPage = new LandingPage(this.driver);
+
+        landingPage = new LandingPage(driver);
         landingPage.goTo();
     }
 
     @AfterClass(alwaysRun = true)
     public void tearDown() {
-        if (driver != null) {
-            driver.quit();
-        }
+        DriverManager.quitDriver();
     }
 }
