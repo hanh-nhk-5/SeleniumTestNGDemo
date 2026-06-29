@@ -5,7 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class AlertTest extends BaseTest {
-    @Test
+    @Test(groups = {"smoke", "regression"})
     public void verifyAlertText(){
         String name = "Hanh hsl";
         landingPage.triggerAlert(name);

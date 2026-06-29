@@ -5,7 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class MouseHoverTest extends BaseTest{
-    @Test
+    @Test (groups="regression")
     public void verifyMouseHoverMenuDisplayed(){
         landingPage.hoverOnMouseHoverButton();
         Assert.assertTrue(landingPage.isMouseHoverMenuDisplayed());

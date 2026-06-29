@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 public class DropdownTest extends BaseTest {
 
-    @Test
+    @Test(groups = {"regression"})
     public void verifyAnyDropdownOptionCanBeSelected() {
         landingPage.selectIndexFromDropdown(2);
         Assert.assertEquals(landingPage.getSelectedIndexFromDropdown(), 2);

@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 
 public class IFrameTest extends BaseTest {
 
-    @Test
+    @Test (groups={"smoke"})
     public void verifyUserCanSwitchToIframeAndBack() {
         landingPage.switchToCoursesIframe();
         Assert.assertTrue(landingPage.isHomeMenuDisplayedInIframe());
