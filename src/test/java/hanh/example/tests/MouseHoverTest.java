@@ -11,10 +11,10 @@ public class MouseHoverTest extends BaseTest{
         Assert.assertTrue(landingPage.isMouseHoverMenuDisplayed());
     }
 
-    @Test(description = "MH-04: Reload option action")
+    @Test(description = "MH-04: Reload option action", retryAnalyzer =  hanh.example.utils.Retry.class, groups = {"smoke"})
     public void verifyReloadOptionReloadsPage(){
         landingPage.clickReloadOptionOfMouseHoverButton();
-        Assert.assertTrue(landingPage.isPageReloaded());
+        Assert.assertFalse(landingPage.isPageReloaded()); //force to fail to retry
     }
 
 }

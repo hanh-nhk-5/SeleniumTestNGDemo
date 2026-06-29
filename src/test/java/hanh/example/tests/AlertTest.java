@@ -6,7 +6,7 @@ import org.testng.SkipException;
 import org.testng.annotations.Test;
 
 public class AlertTest extends BaseTest {
-    @Test(groups = {"smoke", "regression"})
+    @Test(groups = {"regression"})
     public void verifyAlertText(){
         String name = "Hanh hsl";
         landingPage.triggerAlert(name);
