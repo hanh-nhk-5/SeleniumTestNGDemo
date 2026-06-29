@@ -2,6 +2,7 @@ package hanh.example.tests;
 
 import hanh.example.testComponents.BaseTest;
 import org.testng.Assert;
+import org.testng.SkipException;
 import org.testng.annotations.Test;
 
 public class AlertTest extends BaseTest {
@@ -12,6 +13,9 @@ public class AlertTest extends BaseTest {
         String message = landingPage.getAlertMessage();
         Assert.assertEquals(message, buildAlertMessage(name));
         landingPage.acceptAlert();
+
+        //just a demonstration how ExtentReports displays skipped tests.
+        throw new SkipException("Skipped");
 
     }
 
