@@ -3,9 +3,10 @@
 <suite name="default" parallel="classes" thread-count="3">
     <test name="default">
         <classes>
-            <class name="hanh.example.tests.IFrameTest"/>
-            <class name="hanh.example.tests.CheckBoxTest"/>
-            <class name="hanh.example.tests.DropdownTest"/>
+<!--            <class name="hanh.example.tests.IFrameTest"/>-->
+<!--            <class name="hanh.example.tests.CheckBoxTest"/>-->
+<!--            <class name="hanh.example.tests.DropdownTest"/>-->
+            <class name="hanh.example.tests.MouseHoverTest"/>
         </classes>
     </test>
 

@@ -1,7 +1,9 @@
 package hanh.example.pages;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -22,6 +24,9 @@ public class LandingPage extends BasePage {
     By confirmButtonLocator = By.id("confirmbtn");
     By iframeLocator = By.id("courses-iframe");
     By iframeHomeMenuLocator = By.xpath("//a[normalize-space()='Home']");
+    By mouseHoverButtonLocator = By.id("mousehover");
+    By mouseHoverTopOptionLocator = By.xpath("//div[@class='mouse-hover-content']/a[normalize-space()='Top']");
+    By mouseHoverReloadOptionLocator = By.xpath("//div[@class='mouse-hover-content']/a[normalize-space()='Reload']");
 
     public void goTo(){
         driver.get("https://rahulshettyacademy.com/AutomationPractice/");
@@ -103,5 +108,35 @@ public class LandingPage extends BasePage {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(alertInputLocator)).isDisplayed();
     }
 
-}
+    public void hoverOnMouseHoverButton(){
+        WebElement hoverButton = driver.findElement(mouseHoverButtonLocator);
+        Actions actions = new Actions(driver);
+        actions.moveToElement(hoverButton).perform();
+    }
 
+    public boolean isMouseHoverMenuDisplayed(){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(mouseHoverTopOptionLocator)).isDisplayed();
+    }
+
+    public void clickReloadOptionOfMouseHoverButton(){
+        WebElement pageRoot = driver.findElement(By.tagName("html"));
+        WebElement hoverButton = driver.findElement(mouseHoverButtonLocator);
+        Actions actions = new Actions(driver);
+        actions.moveToElement(hoverButton).perform();
+
+        WebElement reloadOption = driver.findElement(mouseHoverReloadOptionLocator);
+        actions.moveToElement(reloadOption).click().perform();
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.stalenessOf(pageRoot));
+        wait.until(d -> "complete".equals(((JavascriptExecutor) d).executeScript("return document.readyState")));
+    }
+
+    public boolean isPageReloaded(){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(mouseHoverButtonLocator)).isDisplayed();
+    }
+
+
+}
