@@ -166,11 +166,11 @@ public class LandingPage extends BasePage {
         }
     }
 
-    public void closeTabAndSwitchToWindow(String windowUrl){
+    public void closeTabAndSwitchToWindow(String windowURL){
         driver.close();
         for(String id : driver.getWindowHandles()) {
             driver.switchTo().window(id);
-            if(driver.getCurrentUrl().contains(windowUrl))
+            if(driver.getCurrentUrl().contains(windowURL))
                 break;
         }
     }
@@ -178,5 +178,6 @@ public class LandingPage extends BasePage {
     public String getCurrentWindowUrl(){
         return driver.getCurrentUrl();
     }
+
 
 }

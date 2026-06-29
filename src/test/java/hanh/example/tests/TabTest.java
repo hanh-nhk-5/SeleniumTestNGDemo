@@ -9,7 +9,7 @@ public class TabTest extends BaseTest {
     public void verifyTabOpen(){
         String currentWindowUrl = landingPage.getCurrentWindowUrl();
         landingPage.openTab();
-        Assert.assertTrue(landingPage.getCurrentWindowUrl().contains("www.qaclickacademy.com"));
+        Assert.assertTrue(landingPage.getCurrentWindowUrl().contains("qaclickacademy.com/lander"));
         landingPage.closeTabAndSwitchToWindow(currentWindowUrl);
     }
 }
