@@ -9,7 +9,9 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class LandingPage extends BasePage {
 
@@ -27,6 +29,8 @@ public class LandingPage extends BasePage {
     By mouseHoverButtonLocator = By.id("mousehover");
     By mouseHoverTopOptionLocator = By.xpath("//div[@class='mouse-hover-content']/a[normalize-space()='Top']");
     By mouseHoverReloadOptionLocator = By.xpath("//div[@class='mouse-hover-content']/a[normalize-space()='Reload']");
+    By productTableLocator = By.id("product");
+    By instructorLocators = By.xpath("//table[@id='product']//td[1]");
 
     public void goTo(){
         driver.get("https://rahulshettyacademy.com/AutomationPractice/");
@@ -139,4 +143,7 @@ public class LandingPage extends BasePage {
     }
 
 
+    public boolean isInstructor(String name){
+        return driver.findElements(instructorLocators).stream().map(WebElement::getText).anyMatch(instructorName -> instructorName.equals(name));
+    }
 }
