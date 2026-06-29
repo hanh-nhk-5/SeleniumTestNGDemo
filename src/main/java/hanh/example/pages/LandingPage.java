@@ -7,11 +7,9 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
-import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class LandingPage extends BasePage {
 
@@ -29,8 +27,8 @@ public class LandingPage extends BasePage {
     By mouseHoverButtonLocator = By.id("mousehover");
     By mouseHoverTopOptionLocator = By.xpath("//div[@class='mouse-hover-content']/a[normalize-space()='Top']");
     By mouseHoverReloadOptionLocator = By.xpath("//div[@class='mouse-hover-content']/a[normalize-space()='Reload']");
-    By productTableLocator = By.id("product");
     By instructorLocators = By.xpath("//table[@id='product']//td[1]");
+    By openTabLocator = By.id("opentab");
 
     public void goTo(){
         driver.get("https://rahulshettyacademy.com/AutomationPractice/");
@@ -142,8 +140,43 @@ public class LandingPage extends BasePage {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(mouseHoverButtonLocator)).isDisplayed();
     }
 
-
     public boolean isInstructor(String name){
         return driver.findElements(instructorLocators).stream().map(WebElement::getText).anyMatch(instructorName -> instructorName.equals(name));
     }
+
+    public void openTab(){
+        int numberOfTabs = driver.getWindowHandles().size();
+        System.out.println("Number of tabs: " + numberOfTabs);
+        driver.findElement(openTabLocator).click();
+
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        wait.until(ExpectedConditions.numberOfWindowsToBe(numberOfTabs + 1));
+
+        switchToTabOrWindow("www.qaclickacademy.com");
+    }
+
+    public void switchToTabOrWindow(String windowUrl){
+        String currentWindow= driver.getWindowHandle();
+        for (String id : driver.getWindowHandles()) {
+            if(!id.equals(currentWindow)) {
+                driver.switchTo().window(id);
+                if(driver.getCurrentUrl().contains(windowUrl))
+                    break;
+            }
+        }
+    }
+
+    public void closeTabAndSwitchToWindow(String windowUrl){
+        driver.close();
+        for(String id : driver.getWindowHandles()) {
+            driver.switchTo().window(id);
+            if(driver.getCurrentUrl().contains(windowUrl))
+                break;
+        }
+    }
+
+    public String getCurrentWindowUrl(){
+        return driver.getCurrentUrl();
+    }
+
 }
